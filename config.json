@@ -1,0 +1,35 @@
+{
+	"Aliyun": [
+		{
+			"Name": "aliyun-hz-xxxxx",
+			"RegionId": ["cn-shanghai","cn-hangzhou","cn-hongkong"],
+			"AccessKeyId": "xxxxx",
+			"AccessKeySecret": "xxxxx"
+		},
+		{
+			"Name": "aliyun-xjp-xxxxx",
+			"RegionId": ["ap-southeast-1","cn-hangzhou","ap-south-1"],
+			"AccessKeyId": "xxxxx",
+			"AccessKeySecret": "xxxxx"
+		},
+		{
+			"Name": "aliyun-md-xxxxx",
+			"RegionId": ["us-east-1","eu-central-1","cn-hangzhou"],
+			"AccessKeyId": "xxxxx",
+			"AccessKeySecret": "xxxxx"
+		},
+		{
+			"Name": "aliyun-qa-xxxxx",
+			"RegionId": ["ap-southeast-1","cn-shanghai","ap-south-1"],
+			"AccessKeyId": "xxxxx",
+			"AccessKeySecret": "xxxxx"
+		}
+	],
+	"Aws": [
+		{
+			"Name": "aws-k8s-xxxxx",
+			"RegionId": ["ap-south-1"],
+			"AccessKeyId": "xxxxx",
+			"AccessKeySecret": "xxxxx"
+		}]
+}
