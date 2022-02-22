@@ -14,6 +14,21 @@ import aws
 import diff
 import time
 
+import logging
+from logging.handlers import TimedRotatingFileHandler
+
+# 定义日志
+LOG_FILE = "./jms-sync.log"
+logger = logging.getLogger()  # 创建logger
+logger.setLevel(logging.INFO)  # 设置logger日志等级
+fh = TimedRotatingFileHandler(LOG_FILE, when='D', interval=1, backupCount=30)  # 创建handler
+datefmt = '%Y-%m-%d %H:%M:%S'
+format_str = '%(asctime)s %(levelname)s %(message)s '
+formatter = logging.Formatter(format_str, datefmt)  # 设置输出日志格式
+fh.setFormatter(formatter)  # 为handler指定输出格式
+logger.addHandler(fh)  # 为logger添加的日志处理器
+
+
 assets_ip_list = []
 assets_name_list = []
 assets_node = {}
@@ -28,6 +43,7 @@ def create_type_node(assets_node, access_type, name):
         a = "/Default/" + access_type + "/" + name + "/"
         full_path = a + i
         jump_assets_info.create_node(full_path)
+        logging.info(full_path + "  VPC add")
     full_vpc.clear()
 
 
@@ -110,7 +126,8 @@ def main():
     if len(delete_ip_list) > 0:
         for ip in delete_ip_list:
             del_assets = jms.NewJumpserver().delete_assets(id=jump_ip_list[ip])
-            print(ip+" removed")
+            logging.info(ip + " removed")
+            # print(ip+" removed")
 
     # print(add_ip_list)
     for ip in add_ip_list:
@@ -118,6 +135,7 @@ def main():
         full_path = all_full_path[ip]
         jms.NewJumpserver().create_assets(ip=ip, hostname=hostname,
                                           full_path=full_path)
+        logging.info(ip + " add")
 
 
 if __name__ == '__main__':
