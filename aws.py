@@ -43,7 +43,10 @@ class GetEC2Information():
         instances = ec2.describe_instances()
         for item in instances['Reservations']:
             for instance in item['Instances']:
-                if instance['State']['Name'] != 'running':
+                state = instance['State']['Name']
+                # if state != 'running':
+                # AWS存在状态为terminated主机
+                if state == 'terminated':
                     continue
                 tags = instance.get('Tags', [])
                 assets_name = ''
