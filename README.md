@@ -13,5 +13,8 @@ jumpserver同步云厂商资源脚本
 ![image](https://user-images.githubusercontent.com/24648358/155914906-109090a0-b17a-448e-9f80-ceb77b0f3330.png)
 
 4、配置完jms.py内的一些参数与config.json
-
+key_id = ''
+secret = ''
+jumpserver_url = ''
+admin_user = ''
 5、直接运行main.py文件
