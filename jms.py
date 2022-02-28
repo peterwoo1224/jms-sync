@@ -20,7 +20,7 @@ import requests
 key_id = '58edeb63-8ac1-4a71-a095-xxxxx'
 secret = 'b6b1d83f-efae-4741-bc6b-xxxxx'
 jumpserver_url = 'https://jump.xxxxx.com'
-
+admin_user = '3fa85f64-5717-4562-b3fc-xxxxx'
 
 class NewJumpserver():
     def __init__(self, host=jumpserver_url, key_id=key_id, secret=secret):
@@ -107,7 +107,7 @@ class NewJumpserver():
             "ip": ip,
             "hostname": hostname,
             "platform": "Linux",
-            "admin_user": "6349700f-68ec-400d-98b5-7e1b5d42370b",
+            "admin_user": admin_user,
             "admin_user_display": "root",
             "protocols": ["ssh/22"],
             "created_by": "Administrator",
