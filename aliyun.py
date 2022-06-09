@@ -8,16 +8,8 @@
 """
 
 import json
-import requests
-import time
-from pypinyin import lazy_pinyin
-import pandas as pd
-import os
-from httpsig.requests_auth import HTTPSignatureAuth
-
 from aliyunsdkcore.client import AcsClient
 from aliyunsdkecs.request.v20140526.DescribeInstancesRequest import DescribeInstancesRequest
-from collections import Counter
 
 assets_ip_list = []
 assets_name_list = []
@@ -35,7 +27,7 @@ class AliyunEcs():
         _ecs_num = response.get('TotalCount') // 100 + 2
         return _ecs_num
 
-    def assets_list(self,region):
+    def ecs_info(self, region, name_head):
         request = DescribeInstancesRequest()
         request.set_accept_format('json')
         request.set_PageSize(100)
@@ -44,13 +36,12 @@ class AliyunEcs():
             response = json.loads(self._client.do_action_with_exception(request))
             instances_list = response.get('Instances').get('Instance')
             for instance in instances_list:
-                if instance.get('Status') != 'Running':
-                    continue
-                assets_name = instance.get('InstanceName')
-                full_assets_name = region + '-' + assets_name
-                assets_name_list.append(full_assets_name)
                 assets_ip = ''.join(instance.get('VpcAttributes').get('PrivateIpAddress').get('IpAddress'))
                 assets_ip_list.append(assets_ip)
+                assets_name = instance.get('InstanceName')
+                full_assets_name = name_head + '-' + region + '-' + assets_name + '-' + assets_ip
+                assets_name_list.append(full_assets_name)
+
                 try:
                     vpc_id = ''.join(instance.get('VpcAttributes').get('VpcId'))
                     assets_node[assets_ip] = vpc_id

@@ -7,14 +7,32 @@
 @time: 2022/1/7 17:22
 """
 
+# -*- coding: utf-8 -*-
+# @Time    : 2021/3/11 11:25 上午
+# @Author  : peterwoo1224
+# @Email   : peterwoo1224@gmail.com
+# @File    : aliyun.py
+# @Software: PyCharm
+
 import boto3
+
+# import json
+# import requests
+# import time
+# from pypinyin import lazy_pinyin
+# import pandas as pd
+# import os
+# from httpsig.requests_auth import HTTPSignatureAuth
+#
+# from pprint import pprint
+# from collections import Counter
 
 assets_ip_list = []
 assets_name_list = []
 assets_node = {}
 
 
-class GetEC2Information():
+class AwsEc2():
     def __init__(self, access_key_id, access_key_secret, region):
         self.region = region
         self.access_key_id = access_key_id
@@ -35,17 +53,15 @@ class GetEC2Information():
         )
         return ec2
 
-    def ec2_information(self, region):
+    def ec2_info(self, region, name_head):
         """
         :return: 获取所有账号下ec2资源信息
         """
-        ec2 = self.ec2_client(self.access_key_id, self.access_key_secret, self.region)
-        instances = ec2.describe_instances()
+        response = self.ec2_client(self.access_key_id, self.access_key_secret, self.region)
+        instances = response.describe_instances()
         for item in instances['Reservations']:
             for instance in item['Instances']:
                 state = instance['State']['Name']
-                # if state != 'running':
-                # AWS存在状态为terminated主机
                 if state == 'terminated':
                     continue
                 tags = instance.get('Tags', [])
@@ -53,11 +69,10 @@ class GetEC2Information():
                 for t in tags:
                     if t['Key'] == 'Name':
                         assets_name = t['Value']
-                full_assets_name = region + '-' + assets_name
-                assets_name_list.append(full_assets_name)
                 assets_ip = instance['PrivateIpAddress']
                 assets_ip_list.append(assets_ip)
-                # print(full_assets_name)
+                full_assets_name = name_head + '-' + region + '-' + assets_name + '-' + assets_ip
+                assets_name_list.append(full_assets_name)
                 try:
                     vpcId = instance['VpcId']
                     assets_node[assets_ip] = vpcId

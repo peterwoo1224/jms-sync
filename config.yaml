@@ -1,0 +1,27 @@
+Aliyun:
+  - Name: ali-6584
+    RegionId:
+      - cn-shanghai
+      - cn-hangzhou
+      - cn-hongkong
+    AccessKeyId: 
+    AccessKeySecret: 
+  - Name: ali-7935
+    RegionId:
+      - ap-southeast-1
+      - cn-hangzhou
+      - ap-south-1
+    AccessKeyId: 
+    AccessKeySecret: 
+Aws:
+  - Name: aws-1427
+    RegionId:
+      - ap-south-1
+    AccessKeyId: 
+    AccessKeySecret: 
+Tencent:
+  - Name: tc-7941
+    RegionId:
+      - ap-shanghai
+    AccessKeyId: 
+    AccessKeySecret: 

@@ -11,6 +11,7 @@ import jms
 
 jump_ip_list = []
 jump_id_list = []
+jump_hostname_list = []
 node_dict = {}
 
 
@@ -31,8 +32,10 @@ class Diff():
         for var in jump_assets_info.get_assets():
             jump_id_list.append(var.get('id'))
             jump_ip_list.append(var.get('ip'))
+            jump_hostname_list.append(var.get('hostname'))
         jumpserver_dict = dict(list(zip(jump_ip_list, jump_id_list)))  # 将Jumpserver资产合并成子字典
-        return jumpserver_dict
+        jumpserver_hostname_dict = dict(list(zip(jump_ip_list, jump_hostname_list)))
+        return jumpserver_dict,jumpserver_hostname_dict
 
 
     def assets_full_path(self, assets_node, access_type, name):

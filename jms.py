@@ -15,19 +15,18 @@ import pandas as pd
 from httpsig.requests_auth import HTTPSignatureAuth
 import requests
 
-
 # jumpserver配置
-key_id = '58edeb63-8ac1-4a71-a095-xxxxx'
-secret = 'b6b1d83f-efae-4741-bc6b-xxxxx'
-jumpserver_url = 'https://jump.xxxxx.com'
-admin_user = '3fa85f64-5717-4562-b3fc-xxxxx'
+key_id = '
+secret = ''
+jumpserver_url = 'https://jump.xxx.com'
+admin_user = ''
+
 
 class NewJumpserver():
-    def __init__(self, host=jumpserver_url, key_id=key_id, secret=secret, admin_user=admin_user):
+    def __init__(self, host=jumpserver_url, key_id=key_id, secret=secret):
         self.host = host
         self.keyid = key_id
         self.secret = secret
-        self.admin_user = admin_user
         self.node_list = self.get_node_list()
 
     def _auth(self):
@@ -108,7 +107,7 @@ class NewJumpserver():
             "ip": ip,
             "hostname": hostname,
             "platform": "Linux",
-            "admin_user": self.admin_user,
+            "admin_user": admin_user,
             "admin_user_display": "root",
             "protocols": ["ssh/22"],
             "created_by": "Administrator",
